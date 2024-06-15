@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS - Employee Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Employee Management</h2>
+        <!-- Add Employee Form -->
+        <form id="addEmployeeForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" class="form-control" id="department" name="department" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <input type="text" class="form-control" id="role" name="role" required>
+            </div>
+            <div class="form-group">
+                <label for="hireDate">Hire Date</label>
+                <input type="date" class="form-control" id="hireDate" name="hireDate" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Employee</button>
+        </form>
+
+        <!-- Employee Table -->
+        <h3 class="mt-5">Employee Records</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Hire Date</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+                <!-- Employee records will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Function to add employee record to the table
+        function addEmployeeToTable(firstName, lastName, department, role, hireDate) {
+            const tableBody = document.getElementById('employeeTableBody');
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
+                <td>${firstName}</td>
+                <td>${lastName}</td>
+                <td>${department}</td>
+                <td>${role}</td>
+                <td>${hireDate}</td>
+            `;
+        }
+
+        // Event listener for the add employee form submission
+        document.getElementById('addEmployeeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const employeeData = {};
+            formData.forEach((value, key) => {
+                employeeData[key] = value;
+            });
+
+            // Here you can make an AJAX request to the backend API to add the employee
+            // Once the request is successful, you can add the new employee to the table
+            // For demonstration, let's add a dummy employee to the table
+            addEmployeeToTable(employeeData.firstName, employeeData.lastName, employeeData.department, employeeData.role, employeeData.hireDate);
+
+            // Clear the form after adding the employee
+            this.reset();
+        });
+    </script>
+</body>
+</html>
